@@ -4,13 +4,13 @@ import { Text } from 'react-native-paper'
 import { circleSize } from './timeUtils'
 import { useTextColorOnPrimary } from '../utils'
 
-function AnalogClockMinutes({ minutes }: { minutes: number }) {
-  const range = getMinuteNumbers(circleSize, 12)
+function AnalogClockMinutes({ minutes, round }: { minutes: number, round?: number }) {
+  const range = getMinuteNumbers(circleSize, round ? Math.floor(60 / round) : 12)
   const color = useTextColorOnPrimary()
   return (
     <>
       {range.map((a, i) => {
-        const currentMinutes = i * 5
+        const currentMinutes = round ? i * round : i * 5
         const isZero = currentMinutes === 0
         let isCurrent =
           currentMinutes - 1 <= minutes && currentMinutes + 1 >= minutes
@@ -82,7 +82,7 @@ function getMinuteNumbers(size: number, count: number) {
 
   angle = angle = (-90 * Math.PI) / 180
 
-  return Array(12)
+  return Array(count)
     .fill(true)
     .map(() => {
       let x = Math.round(size / 2 + radius * Math.cos(angle))

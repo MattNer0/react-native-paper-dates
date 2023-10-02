@@ -101,12 +101,23 @@ export function getHourTypeFromOffset(
 }
 
 // Calculate the minute from the hand angle
-export function getMinutes(handAngle: number) {
+export function getMinutes(handAngle: number, round?: number) {
   handAngle = snap(handAngle, _12)
 
   let minute = parseInt((((handAngle - _90) % _360) / _12).toFixed(), 10)
   while (minute < 0) minute += 60
   while (minute >= 60) minute -= 60
+
+  if (round && minute > 0) {
+    let diff = minute % round
+    if (diff < round / 2) {
+      minute = minute - (minute % round)
+    } else {
+      minute = minute + (round - (minute % round))
+    }
+
+    if (minute === 60) minute = 0
+  }
 
   return minute
 }

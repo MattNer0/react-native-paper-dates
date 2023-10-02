@@ -27,6 +27,7 @@ type onChangeFunc = ({
 function TimePicker({
   hours,
   minutes,
+  round,
   onFocusInput,
   focused,
   inputType,
@@ -40,6 +41,7 @@ function TimePicker({
   focused: PossibleClockTypes
   hours: number
   minutes: number
+  round?: number
   onFocusInput: (type: PossibleClockTypes) => any
   onChange: onChangeFunc
   use24HourClock?: boolean
@@ -120,6 +122,7 @@ function TimePicker({
             <AnalogClock
               hours={toHourInputFormat(hours, is24Hour)}
               minutes={minutes}
+              round={round}
               focused={focused}
               is24Hour={is24Hour}
               onChange={onInnerChange}

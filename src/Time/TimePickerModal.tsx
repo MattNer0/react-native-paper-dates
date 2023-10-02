@@ -47,6 +47,7 @@ export function TimePickerModal({
   onConfirm,
   hours,
   minutes,
+  round,
   label = 'Select time',
   uppercase = true,
   cancelLabel = 'Cancel',
@@ -66,6 +67,7 @@ export function TimePickerModal({
   confirmLabel?: string
   hours?: number | undefined
   minutes?: number | undefined
+  round?: number | undefined
   visible: boolean | undefined
   onDismiss: () => any
   onConfirm: (hoursAndMinutes: { hours: number; minutes: number }) => any
@@ -107,7 +109,11 @@ export function TimePickerModal({
   }, [setLocalHours, hours])
 
   React.useEffect(() => {
-    setLocalMinutes(getMinutes(minutes))
+    let min = getMinutes(minutes)
+    if (round) {
+      min = min - (min % round)
+    }
+    setLocalMinutes(min)
   }, [setLocalMinutes, minutes])
 
   const onFocusInput = React.useCallback(
@@ -200,6 +206,7 @@ export function TimePickerModal({
                   focused={focused}
                   hours={localHours}
                   minutes={localMinutes}
+                  round={round}
                   onChange={onChange}
                   onFocusInput={onFocusInput}
                 />

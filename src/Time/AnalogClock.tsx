@@ -26,12 +26,14 @@ import { DisplayModeContext } from '../contexts/DisplayModeContext'
 function AnalogClock({
   hours,
   minutes,
+  round,
   focused,
   is24Hour,
   onChange,
 }: {
   hours: number
   minutes: number
+  round?: number
   focused: PossibleClockTypes
   is24Hour: boolean
   onChange: (hoursMinutesAndFocused: {
@@ -94,7 +96,7 @@ function AnalogClock({
           })
         }
       } else if (focusedRef.current === clockTypes.minutes) {
-        let pickedMinutes = getMinutes(angle)
+        let pickedMinutes = getMinutes(angle, round)
         if (minutesRef.current !== pickedMinutes) {
           onChangeRef.current({
             hours: hoursRef.current,
@@ -103,7 +105,7 @@ function AnalogClock({
         }
       }
     },
-    [focusedRef, is24HourRef, hoursRef, onChangeRef, minutesRef, modeRef]
+    [focusedRef, is24HourRef, hoursRef, onChangeRef, minutesRef, modeRef, round]
   )
   const panResponder = React.useRef(
     PanResponder.create({
@@ -182,7 +184,7 @@ function AnalogClock({
       <AnimatedClockSwitcher
         focused={focused}
         hours={<AnalogClockHours is24Hour={is24Hour} hours={hours} />}
-        minutes={<AnalogClockMinutes minutes={minutes} />}
+        minutes={<AnalogClockMinutes minutes={minutes} round={round} />}
       />
     </View>
   )
