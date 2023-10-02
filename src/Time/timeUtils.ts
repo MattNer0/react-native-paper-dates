@@ -243,7 +243,7 @@ export function useInputColors(highlighted: boolean) {
         : theme.colors.onBackground
     } else {
       if (highlighted && !theme.dark) {
-        return theme.colors.primary
+        return (theme as any as MD2Theme).colors.background
       }
       return (theme as any as MD2Theme).colors.text
     }

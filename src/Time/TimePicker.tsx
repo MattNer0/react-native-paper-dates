@@ -28,6 +28,8 @@ function TimePicker({
   hours,
   minutes,
   round,
+  hourLabel,
+  minuteLabel,
   onFocusInput,
   focused,
   inputType,
@@ -42,6 +44,8 @@ function TimePicker({
   hours: number
   minutes: number
   round?: number
+  hourLabel?: string
+  minuteLabel?: string
   onFocusInput: (type: PossibleClockTypes) => any
   onChange: onChangeFunc
   use24HourClock?: boolean
@@ -112,6 +116,8 @@ function TimePicker({
           inputFontSize={inputFontSize}
           hours={hours}
           minutes={minutes}
+          hourLabel={hourLabel}
+          minuteLabel={minuteLabel}
           is24Hour={is24Hour}
           onChange={onChange}
           onFocusInput={onFocusInput}

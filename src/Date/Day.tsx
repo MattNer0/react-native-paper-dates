@@ -60,11 +60,15 @@ function Day(props: {
       ? theme.colors.onPrimary
       : theme.isV3 && inRange && theme.dark
       ? theme.colors.onPrimaryContainer
+      : selected && theme.dark && !theme.isV3
+      ? (theme as any as MD2Theme)?.colors.background
       : selected || (inRange && theme.dark)
       ? textColorOnPrimary
       : theme.isV3
       ? theme.colors.onSurface
       : undefined
+
+    const selectedBackground = theme.dark && !theme.isV3 ? (theme as any as MD2Theme)?.colors.text : primaryColor
 
   let textFont = theme?.isV3
     ? theme.fonts.bodySmall
@@ -93,7 +97,7 @@ function Day(props: {
           style={[
             styles.day,
             isToday ? { borderColor: borderColor } : null,
-            selected ? { backgroundColor: primaryColor } : null,
+            selected ? { backgroundColor: selectedBackground } : null,
           ]}
         >
           <Text

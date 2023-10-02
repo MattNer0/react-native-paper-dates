@@ -52,6 +52,8 @@ export function TimePickerModal({
   uppercase = true,
   cancelLabel = 'Cancel',
   confirmLabel = 'Ok',
+  hourLabel = 'Hour',
+  minuteLabel = 'Minute',
   animationType = 'none',
   locale,
   keyboardIcon = 'keyboard-outline',
@@ -65,6 +67,8 @@ export function TimePickerModal({
   uppercase?: boolean
   cancelLabel?: string
   confirmLabel?: string
+  hourLabel?: string
+  minuteLabel?: string
   hours?: number | undefined
   minutes?: number | undefined
   round?: number | undefined
@@ -210,6 +214,8 @@ export function TimePickerModal({
                   hours={localHours}
                   minutes={localMinutes}
                   round={round}
+                  hourLabel={hourLabel}
+                  minuteLabel={minuteLabel}
                   onChange={onChange}
                   onFocusInput={onFocusInput}
                 />

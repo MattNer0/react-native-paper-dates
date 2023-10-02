@@ -22,6 +22,8 @@ import Color from 'color'
 function TimeInputs({
   hours,
   minutes,
+  hourLabel,
+  minuteLabel,
   onFocusInput,
   focused,
   inputType,
@@ -33,6 +35,8 @@ function TimeInputs({
   focused: PossibleClockTypes
   hours: number
   minutes: number
+  hourLabel?: string
+  minuteLabel?: string
   onFocusInput: (type: PossibleClockTypes) => any
   onChange: (hoursMinutesAndFocused: {
     hours: number
@@ -113,7 +117,7 @@ function TimeInputs({
         />
         {inputType === 'keyboard' ? (
           <Text maxFontSizeMultiplier={1.5} variant="bodySmall">
-            Hour
+            { hourLabel }
           </Text>
         ) : null}
       </View>
@@ -178,7 +182,7 @@ function TimeInputs({
         />
         {inputType === 'keyboard' ? (
           <Text maxFontSizeMultiplier={1.5} variant="bodySmall">
-            Minute
+            { minuteLabel }
           </Text>
         ) : null}
       </View>
