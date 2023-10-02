@@ -86,7 +86,7 @@ export function TimePickerModal({
 
   if (theme.isV3) {
     textFont = theme.fonts.labelMedium
-    textColor = theme.colors.text
+    textColor = theme.colors.onBackground
   } else {
     textFont = (theme as any as MD2Theme)?.fonts.medium
     textColor = (theme as any as MD2Theme)?.colors.text
