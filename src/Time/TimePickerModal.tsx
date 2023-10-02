@@ -82,11 +82,14 @@ export function TimePickerModal({
 
   let textFont
   let labelText = label
+  let textColor = null
 
   if (theme.isV3) {
     textFont = theme.fonts.labelMedium
+    textColor = theme.colors.text
   } else {
     textFont = (theme as any as MD2Theme)?.fonts.medium
+    textColor = (theme as any as MD2Theme)?.colors.text
   }
 
   const [inputType, setInputType] = React.useState<PossibleInputTypes>(
@@ -223,7 +226,7 @@ export function TimePickerModal({
                   accessibilityLabel="toggle keyboard"
                 />
                 <View style={styles.fill} />
-                <Button onPress={onDismiss} uppercase={uppercase}>
+                <Button onPress={onDismiss} uppercase={uppercase} textColor={textColor}>
                   {cancelLabel}
                 </Button>
                 <Button
@@ -231,6 +234,7 @@ export function TimePickerModal({
                     onConfirm({ hours: localHours, minutes: localMinutes })
                   }
                   uppercase={uppercase}
+                  textColor={textColor}
                 >
                   {confirmLabel}
                 </Button>
