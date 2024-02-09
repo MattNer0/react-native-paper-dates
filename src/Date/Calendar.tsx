@@ -1,5 +1,5 @@
 import * as React from 'react'
-import { StyleSheet, View } from 'react-native'
+import { StyleSheet, View, Dimensions } from 'react-native'
 import Swiper from './Swiper'
 import Month from './Month'
 import {
@@ -11,7 +11,7 @@ import {
 } from './dateUtils'
 
 import CalendarHeader from './CalendarHeader'
-import { useCallback, useMemo } from 'react'
+import { useCallback, useEffect, useMemo } from 'react'
 import YearPicker from './YearPicker'
 import Color from 'color'
 import { useTheme } from 'react-native-paper'
@@ -109,8 +109,15 @@ function Calendar(
     return lightenBy(Color(theme.colors.primary), 0.9).hex()
   }, [theme])
 
-  const scrollMode =
-    mode === 'range' || mode === 'multiple' ? 'vertical' : 'horizontal'
+  const [isLandscape, setIsLandscape] = React.useState(
+    Dimensions.get('window').width > Dimensions.get('window').height
+  )
+
+  const [scrollMode, setScrollMode] = React.useState<'vertical' | 'horizontal'>(
+    mode === 'range' || mode === 'multiple' || isLandscape
+      ? 'vertical'
+      : 'horizontal'
+  )
 
   const [selectedYear, setSelectedYear] = React.useState<number | undefined>(
     undefined
@@ -123,6 +130,23 @@ function Calendar(
     },
     [setSelectingYear]
   )
+
+  useEffect(() => {
+    const handleOrientationChange = () => {
+      const newIsLandscape = Dimensions.get('window').width > Dimensions.get('window').height
+      setIsLandscape(newIsLandscape)
+      setScrollMode(
+        mode === 'range' || mode === 'multiple' || newIsLandscape
+          ? 'vertical'
+          : 'horizontal'
+      )
+    }
+
+    const eventhandler = Dimensions.addEventListener('change', handleOrientationChange)
+    return () => {
+      if (eventhandler) { eventhandler.remove() }
+    }
+  }, [mode])
 
   // prevent re-rendering all months when something changed we only need the
   // latest version of the props and we don't want the useCallback to change
