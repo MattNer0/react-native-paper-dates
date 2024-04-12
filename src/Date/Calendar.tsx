@@ -208,8 +208,6 @@ function Calendar(
         initialIndex={getInitialIndex(firstDate)}
         selectedYear={selectedYear}
         scrollMode={scrollMode}
-        startYear={startYear || 1800}
-        endYear={endYear || 2200}
         renderItem={({ index }) => (
           <Month
             locale={locale}

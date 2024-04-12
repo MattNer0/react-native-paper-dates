@@ -20,8 +20,6 @@ export type SwiperProps = {
   renderItem: (renderProps: RenderProps) => any
   renderHeader?: (renderProps: RenderProps) => any
   renderFooter?: (renderProps: RenderProps) => any
-  startYear: number
-  endYear: number
   selectedYear: number | undefined
 }
 
