@@ -68,7 +68,7 @@ function Swiper({
               initialIndex={initialIndex}
               estimatedHeight={estimatedMonthHeight}
               renderItem={renderItem}
-              totalMonths={endYear - startYear}
+              totalMonths={Math.max(24, 12 * Math.abs(endYear - startYear + 1))}
             />
           )}
         </AutoSizer>
@@ -147,7 +147,7 @@ function VerticalScroller({
       <div
         // eslint-disable-next-line react-native/no-inline-styles
         style={{
-          height: estimatedHeight * (totalMonths + 1),
+          height: estimatedHeight * totalMonths,
           position: 'relative',
         }}
       >
