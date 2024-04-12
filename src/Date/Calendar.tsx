@@ -132,7 +132,7 @@ function Calendar(
   )
 
   useEffect(() => {
-    const handleOrientationChange = ({ window }) => {
+    const handleOrientationChange = ({ window }: { window: any }) => {
       if (window) {
         const newIsLandscape = window.width > window.height
         setIsLandscape(newIsLandscape)
