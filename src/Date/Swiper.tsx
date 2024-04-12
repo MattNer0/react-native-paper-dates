@@ -8,7 +8,7 @@ import {
   montHeaderHeight,
 } from './Month'
 
-import { beginOffset, estimatedMonthHeight, totalMonths } from './dateUtils'
+import { beginOffset, estimatedMonthHeight } from './dateUtils'
 import { useLatest } from '../utils'
 import { RenderProps, SwiperProps, useYearChange } from './SwiperUtils'
 import AutoSizer from './AutoSizer'
@@ -20,6 +20,8 @@ function Swiper({
   renderFooter,
   selectedYear,
   initialIndex,
+  startYear,
+  endYear,
 }: SwiperProps) {
   const isHorizontal = scrollMode === 'horizontal'
   const [index, setIndex] = React.useState(initialIndex)
@@ -66,6 +68,7 @@ function Swiper({
               initialIndex={initialIndex}
               estimatedHeight={estimatedMonthHeight}
               renderItem={renderItem}
+              totalMonths={endYear - startYear}
             />
           )}
         </AutoSizer>
@@ -83,12 +86,14 @@ function VerticalScroller({
   initialIndex,
   estimatedHeight,
   renderItem,
+  totalMonths,
 }: {
   renderItem: (renderProps: RenderProps) => any
   width: number
   height: number
   initialIndex: number
   estimatedHeight: number
+  totalMonths: number
 }) {
   const idx = React.useRef<number>(initialIndex)
   const [visibleIndexes, setVisibleIndexes] = React.useState<number[]>(
@@ -142,7 +147,7 @@ function VerticalScroller({
       <div
         // eslint-disable-next-line react-native/no-inline-styles
         style={{
-          height: estimatedHeight * totalMonths,
+          height: estimatedHeight * (totalMonths + 1),
           position: 'relative',
         }}
       >

@@ -132,19 +132,26 @@ function Calendar(
   )
 
   useEffect(() => {
-    const handleOrientationChange = () => {
-      const newIsLandscape = Dimensions.get('window').width > Dimensions.get('window').height
-      setIsLandscape(newIsLandscape)
-      setScrollMode(
-        mode === 'range' || mode === 'multiple' || newIsLandscape
-          ? 'vertical'
-          : 'horizontal'
-      )
+    const handleOrientationChange = ({ window }) => {
+      if (window) {
+        const newIsLandscape = window.width > window.height
+        setIsLandscape(newIsLandscape)
+        setScrollMode(
+          mode === 'range' || mode === 'multiple' || newIsLandscape
+            ? 'vertical'
+            : 'horizontal'
+        )
+      }
     }
 
-    const eventhandler = Dimensions.addEventListener('change', handleOrientationChange)
+    const eventhandler = Dimensions.addEventListener(
+      'change',
+      handleOrientationChange
+    )
     return () => {
-      if (eventhandler) { eventhandler.remove() }
+      if (eventhandler) {
+        eventhandler.remove()
+      }
     }
   }, [mode])
 
@@ -201,6 +208,8 @@ function Calendar(
         initialIndex={getInitialIndex(firstDate)}
         selectedYear={selectedYear}
         scrollMode={scrollMode}
+        startYear={startYear || 1800}
+        endYear={endYear || 2200}
         renderItem={({ index }) => (
           <Month
             locale={locale}
