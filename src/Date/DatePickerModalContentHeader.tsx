@@ -118,7 +118,8 @@ export default function DatePickerModalContentHeader(
               ? getTranslation(props.locale, 'typeInDate')
               : getTranslation(props.locale, 'pickDateFromCalendar')
           }
-          iconColor={theme.isV3 ? theme.colors.onSurface : color}
+          iconColor={'#FFFFFF'}
+          containerColor={'#000000'}
           onPress={onToggle}
         />
       ) : null}
